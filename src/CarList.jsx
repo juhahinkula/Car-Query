@@ -15,7 +15,6 @@ function CarList() {
   if (error) return <div>Error: {error.message}</div>;
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
     { field: 'brand', headerName: 'Brand', width: 150 },
     { field: 'model', headerName: 'Model', width: 150 },
     { field: 'color', headerName: 'Color', width: 150 },
@@ -27,8 +26,8 @@ function CarList() {
   return (
     <>
       <AddCar />
-      <div style={{ height: 400, width: '100%' }}>
-        <DataGrid 
+      <div style={{ height: 600, width: '100%' }}>
+        <DataGrid
           rows={data._embedded.cars} 
           columns={columns} 
           getRowId={row => row._links.car.href}

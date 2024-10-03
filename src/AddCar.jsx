@@ -5,13 +5,13 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CarDialogContent from './CarDialogContent';
 import Button from '@mui/material/Button';
-import { Car } from '../types';
 
 async function addCar(car) {
   const response = await fetch('https://car-rest-service-carshop.2.rahtiapp.fi/cars', 
     {
+      method: 'POST',
       headers: { 'Content-Type': 'application/json'},
-      body: JSON.parse(car)  
+      body: JSON.stringify(car)  
     }
   )
   const data =  await response.json();
@@ -22,24 +22,22 @@ function AddCar() {
   const queryClient = useQueryClient();
 
   const [open, setOpen] = useState(false);
-  const [car, setCar] = useState<Car>({
+  const [car, setCar] = useState({
     brand: '',
     model: '',
     color: '',
-    registrationNumber: '',
+    fuel: '',
     modelYear: 0,
     price: 0
   });
 
-  const { mutate } = useMutation(addCar, {
+  const { mutate } = useMutation({
+    mutationFn: addCar,
     onSuccess: () => {
-      queryClient.invalidateQueries(['cars']);
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['cars'] })
     },
-    onError: (err) => {
-      console.error(err);
-    },
-  });  
-
+  })
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -53,6 +51,7 @@ function AddCar() {
   }
 
   const handleSave = () => {
+    console.log(car);
     mutate(car);
     setCar({ brand: '', model: '', color: '', registrationNumber: '', modelYear: 0, price: 0 });
     handleClose();
