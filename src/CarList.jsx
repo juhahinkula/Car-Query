@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { DataGrid } from '@mui/x-data-grid';
+import AddCar from './AddCar';
 
 const fetchCars = async () => {
   const response = await fetch('https://car-rest-service-carshop.2.rahtiapp.fi/cars');
@@ -24,13 +25,16 @@ function CarList() {
   ];
 
   return (
-    <div style={{ height: 400, width: '100%' }}>
-      <DataGrid 
-        rows={data._embedded.cars} 
-        columns={columns} 
-        getRowId={row => row._links.car.href}
-      />
-    </div>
+    <>
+      <AddCar />
+      <div style={{ height: 400, width: '100%' }}>
+        <DataGrid 
+          rows={data._embedded.cars} 
+          columns={columns} 
+          getRowId={row => row._links.car.href}
+        />
+      </div>
+    </>
   );
 }
 
