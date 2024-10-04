@@ -15,7 +15,7 @@ function CarDialogContent({ car, handleChange }) {
           value={car.color} onChange={handleChange}/>
           <TextField label="Year" name="modelYear"
           value={car.modelYear} onChange={handleChange}/>
-          <TextField label="Fuel" name="registrationNumber"
+          <TextField label="Fuel" name="fuel"
           value={car.fuel} onChange={handleChange}/>
           <TextField label="Price" name="price"
           value={car.price} onChange={handleChange}/>

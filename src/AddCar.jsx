@@ -5,18 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogTitle from '@mui/material/DialogTitle';
 import CarDialogContent from './CarDialogContent';
 import Button from '@mui/material/Button';
-
-async function addCar(car) {
-  const response = await fetch('https://car-rest-service-carshop.2.rahtiapp.fi/cars', 
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json'},
-      body: JSON.stringify(car)  
-    }
-  )
-  const data =  await response.json();
-  return data;
-}
+import { addCar } from './carapi';
 
 function AddCar() {
   const queryClient = useQueryClient();
@@ -51,7 +40,6 @@ function AddCar() {
   }
 
   const handleSave = () => {
-    console.log(car);
     mutate(car);
     setCar({ brand: '', model: '', color: '', registrationNumber: '', modelYear: 0, price: 0 });
     handleClose();
